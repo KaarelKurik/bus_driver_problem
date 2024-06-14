@@ -156,9 +156,15 @@ partial class Program
                 Console.WriteLine(e.Message);
                 return;
             }
-            foreach (string line in lines) {
-                (int, int) timeRange = ParseTimeRange(line); 
-                IncrementCounts(timeCounts, timeRange);
+            try {
+                foreach (string line in lines) {
+                    (int, int) timeRange = ParseTimeRange(line); 
+                    IncrementCounts(timeCounts, timeRange);
+                }
+            } catch (Exception e) {
+                Console.WriteLine($"Failed to parse file `{filename}`!");
+                Console.WriteLine(e.Message);
+                return;
             }
             PrintBusiestPeriod(timeCounts);
         }
